@@ -1,0 +1,156 @@
+.tabela {
+  width: 100%;
+  border: 2px solid var(--azul);
+  border-radius: var(--raio-g);
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  overflow: hidden;
+}
+
+.tabela th,
+.tabela td {
+  padding: 0.9rem 1rem;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.tabela thead th {
+  background: var(--manteiga);
+  color: var(--azul);
+  font-weight: 700;
+  border-bottom: 2px solid var(--azul);
+}
+
+.tabela tbody td {
+  border-bottom: 2px dashed #1a2a8c55;
+}
+
+.tabela .tabela__valor {
+  text-align: right;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.tabela tfoot th,
+.tabela tfoot td {
+  padding-block: 1.1rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--azul);
+}
+
+.tabela__total {
+  font-size: 1.45rem;
+  color: var(--goiabada);
+}
+
+.tabela__item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.tabela__foto {
+  flex: none;
+  width: 88px;
+  border: 2px solid var(--azul);
+  border-radius: var(--raio-m);
+  overflow: hidden;
+}
+
+.tabela__foto img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.tabela__texto {
+  display: grid;
+  gap: 2px;
+  justify-items: start;
+}
+
+.tabela__nome {
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  color: var(--azul);
+}
+
+.tabela__nome:hover {
+  text-decoration: underline;
+}
+
+.tabela__unitario {
+  font-size: 0.9rem;
+  color: var(--cacau-suave);
+}
+
+.tabela__remover {
+  margin-top: 4px;
+  padding: 4px 0;
+  border: 0;
+  background: none;
+  color: var(--erro);
+  font: 600 0.9rem/1 var(--fonte);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+
+.cesta__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.9rem;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 639px) {
+  .tabela thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .tabela,
+  .tabela tbody,
+  .tabela tfoot {
+    display: block;
+  }
+  .tabela tbody tr {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 0.6rem 1rem;
+    padding: 1rem;
+    border-bottom: 2px dashed #1a2a8c55;
+  }
+  .tabela tbody td {
+    padding: 0;
+    border: 0;
+  }
+  .tabela__item {
+    grid-column: 1 / -1;
+  }
+  .tabela tfoot tr {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.9rem 1rem;
+  }
+  .tabela tfoot th,
+  .tabela tfoot td {
+    padding: 0;
+  }
+  .tabela tfoot th {
+    flex: 1;
+  }
+  .cesta__acoes .btn {
+    flex: 1 1 10rem;
+  }
+}

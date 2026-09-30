@@ -1,0 +1,40 @@
+<div class="campo" [ngClass]="{ 'campo--erro': erro() }">
+  <label class="campo__rotulo" [for]="idCampo()">{{ rotulo() }}</label>
+
+  <div class="campo__entrada">
+    <input
+      class="campo__input"
+      [ngClass]="{ 'campo__input--senha': ehSenha() }"
+      [id]="idCampo()"
+      [type]="tipoAtual()"
+      [formControl]="controle()"
+      [appMascara]="mascara()"
+      [attr.autocomplete]="autocomplete()"
+      [attr.inputmode]="inputmode()"
+      [attr.placeholder]="placeholder() || null"
+      [attr.autofocus]="foco() ? '' : null"
+      [attr.aria-invalid]="erro() ? 'true' : null"
+      [attr.aria-describedby]="idCampo() + '-msg'"
+      [attr.aria-required]="controle().hasValidator(obrigatorio) ? 'true' : null"
+      spellcheck="false"
+    />
+    <button
+      *ngIf="ehSenha()"
+      type="button"
+      class="campo__olho"
+      (click)="senhaVisivel.set(!senhaVisivel())"
+      [attr.aria-pressed]="senhaVisivel()"
+      [attr.aria-label]="senhaVisivel() ? 'Ocultar senha' : 'Mostrar senha'"
+    >
+      {{ senhaVisivel() ? 'Ocultar' : 'Mostrar' }}
+    </button>
+  </div>
+
+  <p class="campo__msg" [id]="idCampo() + '-msg'" aria-live="polite">
+    <ng-container [ngSwitch]="situacao()">
+      <ng-container *ngSwitchCase="'erro'">{{ erro() }}</ng-container>
+      <ng-container *ngSwitchCase="'validando'">Verificando…</ng-container>
+      <span *ngSwitchDefault class="campo__dica">{{ dica() }}</span>
+    </ng-container>
+  </p>
+</div>

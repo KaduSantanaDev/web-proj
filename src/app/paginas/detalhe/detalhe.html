@@ -1,0 +1,52 @@
+<section class="pagina">
+  <app-estado-catalogo>
+    <ng-container *ngIf="produto() as p; else naoEncontrado">
+      <nav class="migalhas" aria-label="Você está em">
+        <ol>
+          <li><a routerLink="/">Vitrine</a></li>
+          <li>
+            <a routerLink="/" [queryParams]="{ categoria: p.categoria }">{{ categoria() }}</a>
+          </li>
+        </ol>
+      </nav>
+
+      <article class="detalhe">
+        <div class="detalhe__foto">
+          <img [src]="p.imagem" [alt]="p.nome" width="800" height="600" />
+          <span
+            *ngIf="p.destaque as destaque"
+            class="detalhe__selo"
+            [ngStyle]="estiloDoSelo(destaque)"
+            >{{ destaque }}</span
+          >
+        </div>
+
+        <div class="detalhe__info">
+          <h1>{{ p.nome }}</h1>
+          <p class="detalhe__peso">{{ p.peso }}</p>
+          <p class="detalhe__preco">{{ p.preco | currency }}</p>
+
+          <p class="detalhe__resumo">{{ p.descricao }}</p>
+
+          <h2>Detalhes</h2>
+          <p>{{ p.detalhes }}</p>
+          <h2>Ingredientes</h2>
+          <p class="detalhe__ingredientes">{{ p.ingredientes }}</p>
+
+          <div class="detalhe__compra">
+            <app-quantidade [(valor)]="qtd" [nome]="p.nome" />
+            <button type="button" class="btn btn--primario" (click)="comprar()">Comprar</button>
+          </div>
+        </div>
+      </article>
+    </ng-container>
+
+    <ng-template #naoEncontrado>
+      <div class="vazio">
+        <h1>Produto não encontrado</h1>
+        <p>Esse produto saiu da vitrine ou o endereço está incorreto.</p>
+        <a class="btn btn--primario" routerLink="/">Ver a vitrine</a>
+      </div>
+    </ng-template>
+  </app-estado-catalogo>
+</section>

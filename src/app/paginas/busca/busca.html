@@ -1,0 +1,43 @@
+<section class="pagina">
+  <header class="pagina__cabecalho">
+    <ng-container *ngIf="termo(); else semTermo">
+      <h1>Pesquisa por: {{ termo() }}</h1>
+      <p class="pagina__apoio" role="status">{{ resumo() }}</p>
+    </ng-container>
+    <ng-template #semTermo>
+      <h1>Pesquisa</h1>
+      <p class="pagina__apoio">Digite o nome de um produto na barra de busca, no topo da página.</p>
+    </ng-template>
+  </header>
+
+  <app-estado-catalogo>
+    <app-grade-produtos
+      *ngIf="resultados().length > 0; else semResultados"
+      [produtos]="resultados()"
+    />
+
+    <ng-template #semResultados>
+      <div class="vazio">
+        <ng-container *ngIf="termo(); else convite">
+          <h2>Nada com “{{ termo() }}” por aqui</h2>
+          <p>
+            Confira a ortografia ou tente uma palavra mais curta, como “bolo”, “café” ou “coco”.
+            Também dá para navegar por categoria:
+          </p>
+        </ng-container>
+        <ng-template #convite>
+          <h2>O que você procura?</h2>
+          <p>Ou navegue por categoria:</p>
+        </ng-template>
+
+        <ul class="vazio__categorias">
+          <li *ngFor="let c of catalogo.categorias(); trackBy: porSlug">
+            <a class="btn btn--pequeno" routerLink="/" [queryParams]="{ categoria: c.slug }">{{
+              c.nome
+            }}</a>
+          </li>
+        </ul>
+      </div>
+    </ng-template>
+  </app-estado-catalogo>
+</section>

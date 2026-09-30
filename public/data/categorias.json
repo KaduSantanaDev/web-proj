@@ -1,0 +1,8 @@
+[
+  { "slug": "bolachas", "nome": "Bolachas" },
+  { "slug": "recheadas", "nome": "Recheadas" },
+  { "slug": "salgadas", "nome": "Salgadas" },
+  { "slug": "bolos", "nome": "Bolos" },
+  { "slug": "doces", "nome": "Doces" },
+  { "slug": "cafes-e-chas", "nome": "Cafés e chás" }
+]

@@ -1,0 +1,36 @@
+<article class="card">
+  <a class="card__foto" [routerLink]="['/produto', produto().id]" tabindex="-1" aria-hidden="true">
+    <img
+      [src]="produto().imagem"
+      alt=""
+      width="800"
+      height="600"
+      [attr.loading]="prioritario() ? 'eager' : 'lazy'"
+    />
+    <span
+      *ngIf="produto().destaque as destaque"
+      class="card__selo"
+      [ngStyle]="estiloDoSelo(destaque)"
+      >{{ destaque }}</span
+    >
+  </a>
+
+  <div class="card__corpo">
+    <h2 class="card__nome">
+      <a [routerLink]="['/produto', produto().id]">{{ produto().nome }}</a>
+    </h2>
+    <p class="card__peso">{{ produto().peso }}</p>
+
+    <div class="card__rodape">
+      <p class="card__preco">{{ produto().preco | currency }}</p>
+      <button
+        type="button"
+        class="btn btn--primario btn--pequeno"
+        (click)="comprar()"
+        [attr.aria-label]="'Comprar ' + produto().nome"
+      >
+        Comprar
+      </button>
+    </div>
+  </div>
+</article>

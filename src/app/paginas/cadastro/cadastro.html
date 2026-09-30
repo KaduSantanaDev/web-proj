@@ -1,0 +1,79 @@
+<section class="pagina">
+  <div class="cadastro">
+    <header class="cadastro__cabecalho">
+      <h1>Cadastro</h1>
+      <p>
+        Já tem conta?
+        <a routerLink="/login" [queryParams]="retorno() ? { retorno: retorno() } : null"
+          >Entre aqui</a
+        >.
+      </p>
+    </header>
+
+    <form class="cadastro__form" [formGroup]="form" (ngSubmit)="cadastrar()" novalidate>
+      <p *ngIf="erro()" class="alerta cadastro__largo" role="alert">{{ erro() }}</p>
+
+      <app-campo
+        class="cadastro__largo"
+        idCampo="cadastro-nome"
+        rotulo="Nome completo"
+        autocomplete="name"
+        [controle]="form.controls.nome"
+        [mensagens]="mensagens.nome"
+      />
+      <app-campo
+        class="cadastro__largo"
+        idCampo="cadastro-email"
+        rotulo="E-mail"
+        tipo="email"
+        autocomplete="email"
+        inputmode="email"
+        [controle]="form.controls.email"
+        [mensagens]="mensagens.email"
+      />
+      <app-campo
+        idCampo="cadastro-senha"
+        rotulo="Senha"
+        tipo="password"
+        autocomplete="new-password"
+        dica="Mínimo de 8 caracteres, com letras e números."
+        [controle]="form.controls.senha"
+        [mensagens]="mensagens.senha"
+      />
+      <app-campo
+        idCampo="cadastro-confirmacao"
+        rotulo="Confirme a senha"
+        tipo="password"
+        autocomplete="new-password"
+        [controle]="form.controls.confirmacao"
+        [mensagens]="mensagens.confirmacao"
+      />
+      <app-campo
+        idCampo="cadastro-cpf"
+        rotulo="CPF"
+        inputmode="numeric"
+        mascara="cpf"
+        placeholder="000.000.000-00"
+        [controle]="form.controls.cpf"
+        [mensagens]="mensagens.cpf"
+      />
+      <app-campo
+        idCampo="cadastro-telefone"
+        rotulo="Telefone"
+        tipo="tel"
+        autocomplete="tel-national"
+        inputmode="tel"
+        mascara="telefone"
+        placeholder="(00) 00000-0000"
+        [controle]="form.controls.telefone"
+        [mensagens]="mensagens.telefone"
+      />
+
+      <div class="cadastro__acoes cadastro__largo">
+        <button type="submit" class="btn btn--primario" [disabled]="enviando()">
+          {{ enviando() ? 'Criando cadastro…' : 'Criar cadastro' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,57 @@
+<section class="pagina">
+  <div class="login">
+    <section class="login__coluna" aria-labelledby="titulo-entrar">
+      <h1 id="titulo-entrar">Já tenho cadastro</h1>
+
+      <form class="login__form" [formGroup]="form" (ngSubmit)="entrar()" novalidate>
+        <p *ngIf="erro()" class="alerta" role="alert">{{ erro() }}</p>
+
+        <app-campo
+          idCampo="login-email"
+          rotulo="E-mail"
+          tipo="email"
+          autocomplete="username"
+          inputmode="email"
+          [controle]="form.controls.email"
+          [mensagens]="mensagens.email"
+        />
+        <app-campo
+          idCampo="login-senha"
+          rotulo="Senha"
+          tipo="password"
+          autocomplete="current-password"
+          [controle]="form.controls.senha"
+          [mensagens]="mensagens.senha"
+        />
+
+        <button type="submit" class="btn btn--primario btn--largo" [disabled]="enviando()">
+          {{ enviando() ? 'Entrando…' : 'Entrar' }}
+        </button>
+      </form>
+
+      <a class="link-discreto" routerLink="esqueci-senha" queryParamsHandling="preserve"
+        >Esqueci minha senha</a
+      >
+    </section>
+
+    <section class="login__coluna login__coluna--novo" aria-labelledby="titulo-cadastro">
+      <h2 id="titulo-cadastro">Ainda não tenho cadastro</h2>
+      <p>Crie sua conta em um minuto para finalizar compras e guardar seus dados.</p>
+      <a
+        class="btn"
+        routerLink="/cadastro"
+        [queryParams]="retorno() ? { retorno: retorno() } : null"
+        >Criar meu cadastro</a
+      >
+      <img
+        class="login__ilustracao"
+        src="img/produtos/cookie-chocolate.svg"
+        alt=""
+        width="800"
+        height="600"
+      />
+    </section>
+  </div>
+</section>
+
+<router-outlet />

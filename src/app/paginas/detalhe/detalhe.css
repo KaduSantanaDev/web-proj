@@ -1,0 +1,108 @@
+.migalhas ol {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.migalhas li + li::before {
+  content: '/';
+  margin-inline: 0.6rem;
+  color: var(--cacau-suave);
+}
+
+.detalhe {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.detalhe__foto {
+  position: relative;
+  align-self: start;
+  border: 2px solid var(--azul);
+  border-radius: var(--raio-g);
+  background: var(--manteiga-clara);
+  overflow: hidden;
+}
+
+.detalhe__foto img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.detalhe__selo {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 4px 12px;
+  border: 2px solid var(--azul);
+  border-radius: 999px;
+  background: var(--manteiga);
+  color: var(--azul);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.detalhe__info {
+  display: grid;
+  align-content: start;
+  gap: 0.7rem;
+}
+
+.detalhe__info h2 {
+  margin-top: 0.7rem;
+  font-size: 1.2rem;
+}
+
+.detalhe__peso {
+  color: var(--cacau-suave);
+}
+
+.detalhe__preco {
+  font-size: clamp(1.7rem, 1.3rem + 1.6vw, 2.3rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--goiabada);
+  font-variant-numeric: tabular-nums;
+}
+
+.detalhe__resumo {
+  font-size: 1.15rem;
+  font-weight: 500;
+}
+
+.detalhe__ingredientes {
+  font-size: 0.95rem;
+  color: var(--cacau-suave);
+}
+
+.detalhe__compra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.9rem 1.1rem;
+  margin-top: 1.1rem;
+  padding-top: 1.25rem;
+  border-top: 3px dotted var(--azul);
+}
+
+.detalhe__compra .btn {
+  flex: 1 1 11rem;
+  max-width: 20rem;
+  min-height: 52px;
+  font-size: 1.1rem;
+}
+
+@media (min-width: 800px) {
+  .detalhe {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: 2.75rem;
+  }
+  .detalhe__foto {
+    position: sticky;
+    top: 1.5rem;
+  }
+}

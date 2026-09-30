@@ -1,0 +1,38 @@
+<app-dialogo idTitulo="titulo-esqueci" (fechar)="voltar()">
+  <form
+    *ngIf="!enviadoPara(); else enviado"
+    class="dialogo-conteudo"
+    [formGroup]="form"
+    (ngSubmit)="enviar()"
+    novalidate
+  >
+    <h2 id="titulo-esqueci">Informe o seu e-mail</h2>
+    <p>Enviaremos um link para você criar uma nova senha.</p>
+    <app-campo
+      idCampo="esqueci-email"
+      rotulo="E-mail"
+      tipo="email"
+      autocomplete="email"
+      inputmode="email"
+      [foco]="true"
+      [controle]="form.controls.email"
+      [mensagens]="mensagens"
+    />
+    <div class="dialogo-conteudo__acoes">
+      <button type="submit" class="btn btn--primario">Enviar link</button>
+    </div>
+  </form>
+
+  <ng-template #enviado>
+    <div class="dialogo-conteudo">
+      <h2 id="titulo-esqueci">Confira seu e-mail</h2>
+      <p class="alerta alerta--sucesso" role="status">
+        Se {{ enviadoPara() }} tiver cadastro, o link para criar uma nova senha chega em instantes.
+      </p>
+      <p>Não recebeu? Olhe também a caixa de spam.</p>
+      <div class="dialogo-conteudo__acoes">
+        <button type="button" class="btn btn--primario" (click)="voltar()">Voltar ao login</button>
+      </div>
+    </div>
+  </ng-template>
+</app-dialogo>

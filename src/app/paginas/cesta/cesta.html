@@ -1,0 +1,114 @@
+<section class="pagina">
+  <header class="pagina__cabecalho">
+    <h1>Cesta</h1>
+  </header>
+
+  <app-estado-catalogo>
+    <ng-container *ngIf="carrinho.linhas().length > 0; else cestaVazia">
+      <table class="tabela">
+        <caption class="sr-only">
+          Itens na sua cesta
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Item</th>
+            <th scope="col">Qtd</th>
+            <th scope="col" class="tabela__valor">Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let linha of carrinho.linhas(); trackBy: porProduto">
+            <td class="tabela__item">
+              <a
+                class="tabela__foto"
+                [routerLink]="['/produto', linha.produto.id]"
+                tabindex="-1"
+                aria-hidden="true"
+              >
+                <img [src]="linha.produto.imagem" alt="" width="96" height="72" />
+              </a>
+              <div class="tabela__texto">
+                <a class="tabela__nome" [routerLink]="['/produto', linha.produto.id]">{{
+                  linha.produto.nome
+                }}</a>
+                <span class="tabela__unitario">{{ linha.produto.preco | currency }} cada</span>
+                <button
+                  type="button"
+                  class="tabela__remover"
+                  (click)="remover(linha.produto.id, linha.produto.nome)"
+                  [attr.aria-label]="'Remover ' + linha.produto.nome + ' da cesta'"
+                >
+                  Remover
+                </button>
+              </div>
+            </td>
+            <td class="tabela__qtd">
+              <app-quantidade
+                [valor]="linha.qtd"
+                (valorChange)="carrinho.definir(linha.produto.id, $event)"
+                [nome]="linha.produto.nome"
+              />
+            </td>
+            <td class="tabela__valor">{{ linha.subtotal | currency }}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th scope="row" colspan="2">Total</th>
+            <td class="tabela__valor tabela__total">{{ carrinho.total() | currency }}</td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <div class="cesta__acoes">
+        <button type="button" class="btn" (click)="confirmandoLimpeza.set(true)">
+          Limpar cesta
+        </button>
+        <button type="button" class="btn btn--primario" (click)="finalizar()">Finalizar</button>
+      </div>
+    </ng-container>
+
+    <ng-template #cestaVazia>
+      <div class="vazio">
+        <h2>Sua cesta está vazia</h2>
+        <p>Escolha algo na vitrine e volte aqui para finalizar a compra.</p>
+        <a class="btn btn--primario" routerLink="/">Ver a vitrine</a>
+      </div>
+    </ng-template>
+  </app-estado-catalogo>
+</section>
+
+<app-dialogo
+  *ngIf="confirmandoLimpeza()"
+  idTitulo="dlg-limpar"
+  (fechar)="confirmandoLimpeza.set(false)"
+>
+  <div class="dialogo-conteudo">
+    <h2 id="dlg-limpar">Esvaziar a cesta?</h2>
+    <p>
+      Vamos remover {{ carrinho.quantidade() }}
+      {{ carrinho.quantidade() === 1 ? 'item' : 'itens' }} da sua cesta. Isso não pode ser desfeito.
+    </p>
+    <div class="dialogo-conteudo__acoes">
+      <button type="button" class="btn" (click)="confirmandoLimpeza.set(false)">
+        Manter itens
+      </button>
+      <button type="button" class="btn btn--primario" (click)="limpar()">Limpar cesta</button>
+    </div>
+  </div>
+</app-dialogo>
+
+<app-dialogo *ngIf="pedido() as p" idTitulo="dlg-pedido" (fechar)="fecharPedido()">
+  <div class="dialogo-conteudo">
+    <h2 id="dlg-pedido">Pedido {{ p.numero }} confirmado</h2>
+    <p class="alerta alerta--sucesso">
+      {{ p.itens }} {{ p.itens === 1 ? 'item' : 'itens' }} no valor de {{ p.total | currency }}.
+    </p>
+    <p>Enviamos os detalhes para {{ p.email }}. Obrigado por comprar na Migalha!</p>
+    <div class="dialogo-conteudo__acoes">
+      <button type="button" class="btn btn--primario" (click)="fecharPedido()">
+        Voltar à vitrine
+      </button>
+    </div>
+  </div>
+</app-dialogo>
